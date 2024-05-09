@@ -20,8 +20,14 @@ app.get('/spotify', async function (req, res) {
 });
 
 function getCanvasToken() {
-  const CANVAS_TOKEN_URL = 'https://open.spotify.com/get_access_token?reason=transport&productType=web_player';
-  return axios.get(CANVAS_TOKEN_URL)
+  const options = {
+    url: 'https://open.spotify.com/get_access_token?reason=transport&productType=web_player',
+    method: 'GET',
+    headers: {
+      'Cookie': 'sp_dc=AQD4YeKbaH8QVg_6Ox7VD5qjN5eHNRuhJw9c3TvnN-lZokwQoQwtt_2uyfMMB36v8VC_EtrChmpFMemkBWLcDp4iwjnFb_BIcDyx_Va-t8xAqE247A3TKJewWDfN_xwlPYHs4PrkZzW1GB3eeyKlpP_5fD2_y3k'
+    }
+  };
+  return axios.request(options)
     .then(response => {
       if (response.statusText !== 'OK') {
         console.log(`ERROR ${CANVAS_TOKEN_URL}: ${response.status} ${response.statusText}`);
